@@ -1,0 +1,236 @@
+[gd_scene load_steps=16 format=3 uid="uid://71erbdun0dis"]
+
+[ext_resource type="Script" path="res://prefabs/slime.gd" id="1_frplu"]
+[ext_resource type="Texture2D" uid="uid://d0g5oo35aous6" path="res://assets_usados/mystic_woods_free_2.1/sprites/characters/slime.png" id="2_ajqi4"]
+[ext_resource type="AudioStream" uid="uid://cokhngshqbpoy" path="res://soundsFX/pepSound2.ogg" id="3_jpqc5"]
+[ext_resource type="AudioStream" uid="uid://csmun87srsh4w" path="res://soundsFX/hurt_c_08-102842.mp3" id="4_cvcqn"]
+[ext_resource type="PackedScene" uid="uid://b476b5n32o4gp" path="res://barra_de_vida.tscn" id="5_63hqh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5sj3i"]
+size = Vector2(12, 9)
+
+[sub_resource type="Animation" id="Animation_wntg4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Texture:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6in03"]
+resource_name = "attack"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [14, 15, 16, 17, 18, 19, 20]
+}
+
+[sub_resource type="Animation" id="Animation_kuafs"]
+resource_name = "dead"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [28, 29, 30, 31, 32]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_13fo7"]
+resource_name = "hurt"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [21, 22, 23]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Texture:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.984314, 0.105882, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_vmadt"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_1r34e"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_18llj"]
+_data = {
+"RESET": SubResource("Animation_wntg4"),
+"attack": SubResource("Animation_6in03"),
+"dead": SubResource("Animation_kuafs"),
+"hurt": SubResource("Animation_13fo7"),
+"idle": SubResource("Animation_vmadt"),
+"walk": SubResource("Animation_1r34e")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fqdh7"]
+radius = 80.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_ll2f1"]
+font_size = 3
+outline_size = 1
+outline_color = Color(0, 0.0784314, 0.00784314, 1)
+shadow_size = 0
+
+[node name="Slime" type="CharacterBody2D" groups=["slime"]]
+script = ExtResource("1_frplu")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_5sj3i")
+debug_color = Color(0.898039, 0.227451, 0, 0.419608)
+
+[node name="Texture" type="Sprite2D" parent="."]
+texture = ExtResource("2_ajqi4")
+hframes = 7
+vframes = 5
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_18llj")
+}
+
+[node name="AreaDetect" type="Area2D" parent="."]
+
+[node name="CollisionAreaDetect" type="CollisionShape2D" parent="AreaDetect"]
+visible = false
+shape = SubResource("CircleShape2D_fqdh7")
+
+[node name="attackFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_jpqc5")
+
+[node name="hurtFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_cvcqn")
+
+[node name="TimerHurt" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[node name="CooldownAttack" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="BarraDeVida" parent="." instance=ExtResource("5_63hqh")]
+offset_left = -6.0
+offset_top = 9.0
+offset_right = 114.0
+offset_bottom = 39.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = -11.0
+offset_top = -11.0
+offset_right = 12.0
+offset_bottom = -1.0
+text = "◉ Slime"
+label_settings = SubResource("LabelSettings_ll2f1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="AreaDetect" to="." method="_on_area_detect_body_entered"]
+[connection signal="body_exited" from="AreaDetect" to="." method="_on_area_detect_body_exited"]
+[connection signal="timeout" from="TimerHurt" to="." method="_on_timer_hurt_timeout"]
+[connection signal="timeout" from="CooldownAttack" to="." method="_on_cooldown_attack_timeout"]

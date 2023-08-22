@@ -1,0 +1,96 @@
+[gd_scene load_steps=10 format=3 uid="uid://bthjgjjvq58bv"]
+
+[ext_resource type="Script" path="res://scenes/menu.gd" id="1_d6s53"]
+[ext_resource type="FontFile" uid="uid://bjc1q67psdnsj" path="res://fonts/NormalFont.ttf" id="2_3axye"]
+[ext_resource type="Texture2D" uid="uid://dc3ve7pw67nnx" path="res://assets_usados/mystic_woods_free_2.1/sprites/tilesets/grass.png" id="2_q0rv0"]
+[ext_resource type="AudioStream" uid="uid://cufqf4mc8m050" path="res://musics/Swinging Pants.ogg" id="3_171as"]
+[ext_resource type="Texture2D" uid="uid://cfucpaj1mose4" path="res://assets_usados/mystic_woods_free_2.1/sprites/characters/player.png" id="3_di5vq"]
+[ext_resource type="Texture2D" uid="uid://d0g5oo35aous6" path="res://assets_usados/mystic_woods_free_2.1/sprites/characters/slime.png" id="4_pao3p"]
+[ext_resource type="Texture2D" uid="uid://drqc1je5gb6mu" path="res://assets_usados/mystic_woods_free_2.1/sprites/objects/chest_01.png" id="6_toch4"]
+[ext_resource type="AudioStream" uid="uid://3c3lx18u6fqi" path="res://soundsFX/question_003.ogg" id="7_5nbk1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7jxhd"]
+font = ExtResource("2_3axye")
+font_size = 14
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_d6s53")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -160.0
+offset_top = -88.0
+offset_right = 160.0
+offset_bottom = 91.0
+texture = ExtResource("2_q0rv0")
+
+[node name="Objects" type="Node" parent="."]
+
+[node name="Slime" type="Sprite2D" parent="Objects"]
+position = Vector2(14, 168)
+texture = ExtResource("4_pao3p")
+
+[node name="Chest01" type="Sprite2D" parent="Objects"]
+position = Vector2(35, 11)
+texture = ExtResource("6_toch4")
+
+[node name="Player" type="Sprite2D" parent="Objects"]
+position = Vector2(366, 227)
+texture = ExtResource("3_di5vq")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(0.565, 0.08)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -46.5
+offset_right = 56.0
+offset_bottom = 46.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(0.07, 0.035)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0.125, 0)
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Rpg    Top    Down"
+label_settings = SubResource("LabelSettings_7jxhd")
+
+[node name="new" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "new game"
+
+[node name="exit" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "exit"
+
+[node name="btFX" type="AudioStreamPlayer2D" parent="CenterContainer/VBoxContainer"]
+stream = ExtResource("7_5nbk1")
+
+[node name="music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_171as")
+volume_db = -9.369
+
+[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/new" to="." method="_on_new_mouse_entered"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/new" to="." method="_on_new_pressed"]
+[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/exit" to="." method="_on_exit_mouse_entered"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/exit" to="." method="_on_exit_pressed"]

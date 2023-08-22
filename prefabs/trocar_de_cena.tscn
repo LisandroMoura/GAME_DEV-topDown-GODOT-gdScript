@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlebypawc2ebg"]
+
+[ext_resource type="Texture2D" uid="uid://ssvvol66actw" path="res://assets_usados/mystic_woods_free_2.1/sprites/objects/objects.png" id="1_6kv6k"]
+[ext_resource type="Script" path="res://prefabs/trocar_de_cena.gd" id="1_ivcwb"]
+[ext_resource type="AudioStream" uid="uid://jbtkqw5fg37j" path="res://soundsFX/level_completed.wav" id="3_ho05c"]
+[ext_resource type="AudioStream" uid="uid://cwsc4dkqkkxh0" path="res://soundsFX/error_007.ogg" id="4_igr1i"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yr4b8"]
+font_size = 3
+
+[node name="TrocarDeCena" type="Area2D"]
+script = ExtResource("1_ivcwb")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-7, -5, 6, -5, 6, 2, -7, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_6kv6k")
+region_enabled = true
+region_rect = Rect2(0.921341, 0, 13.9184, 14.4018)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -12.0
+offset_right = 20.0
+offset_bottom = -4.0
+text = "Terminar a Fase"
+label_settings = SubResource("LabelSettings_yr4b8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChangeToNewScene" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ho05c")
+
+[node name="RespawMsgGame" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="errorFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_igr1i")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="ChangeToNewScene" to="." method="_on_change_to_new_scene_timeout"]
+[connection signal="timeout" from="RespawMsgGame" to="." method="_on_respaw_msg_game_timeout"]
